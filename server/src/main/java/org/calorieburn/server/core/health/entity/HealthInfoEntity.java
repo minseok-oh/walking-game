@@ -1,4 +1,4 @@
-package org.calorieburn.server.core.member.entity;
+package org.calorieburn.server.core.health.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,26 +14,26 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "MEMBER")
-public class MemberEntity {
+@Table(name = "HEALTH_INFO")
+public class HealthInfoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String name;
+    private Long walkingStep;
 
     @Column
-    private String email;
+    private Long calorie;
 
     @Column
-    private String password;
+    private Long beforeWeight;
 
     @Column
-    private String phone;
+    private Long afterWeight;
 
     @Column
-    private String school;
+    private Long memberId;
 
 }
