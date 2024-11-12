@@ -5,6 +5,7 @@ import org.calorieburn.server.core.health.service.HealthInfoService;
 import org.calorieburn.server.core.member.infra.MemberCoreRepository;
 import org.calorieburn.server.core.member.service.AuthService;
 import org.calorieburn.server.core.member.service.MemberService;
+import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -12,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 public abstract class ServiceTest {
+
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
 
     @Autowired
     protected PasswordEncoder passwordEncoder;
@@ -31,4 +35,8 @@ public abstract class ServiceTest {
     @Autowired
     protected HealthInfoService healthInfoService;
 
+    @AfterEach
+    void tearDown() {
+        databaseCleaner.clear();
+    }
 }
