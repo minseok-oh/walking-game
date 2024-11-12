@@ -1,6 +1,7 @@
 package org.calorieburn.server.core.member.service;
 
 import lombok.RequiredArgsConstructor;
+import org.calorieburn.server.core.health.service.HealthInfoService;
 import org.calorieburn.server.core.member.domain.Member;
 import org.calorieburn.server.core.member.exception.MemberErrorCode;
 import org.calorieburn.server.core.member.infra.MemberCoreRepository;
@@ -17,6 +18,8 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
 
+    private final HealthInfoService healthInfoService;
+
     /**
      * 회원가입을 위한 메서드
      *
@@ -29,8 +32,12 @@ public class AuthService {
      */
     public Member signUp(String name, String email, String password, String phone, String school) {
         String encodedPassword = passwordEncoder.encode(password);
+
         Member member = new Member(null, name, email, encodedPassword, phone, school);
-        return memberCoreRepository.save(member);
+        Member savedMember = memberCoreRepository.save(member);
+
+        healthInfoService.createHealthInfo(savedMember.getId());
+        return savedMember;
     }
 
     /**
