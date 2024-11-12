@@ -26,4 +26,10 @@ public class MemberCoreRepository implements MemberRepository {
                 .orElseThrow(() -> new IllegalArgumentException("해당 id의 회원이 존재하지 않습니다."));
         return Mapper.convertToMember(memberEntity);
     }
+
+    public Member findByEmail(String email) {
+        MemberEntity memberEntity = memberJpaRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 email의 회원이 존재하지 않습니다."));
+        return Mapper.convertToMember(memberEntity);
+    }
 }

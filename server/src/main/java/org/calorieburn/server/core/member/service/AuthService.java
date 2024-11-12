@@ -2,16 +2,20 @@ package org.calorieburn.server.core.member.service;
 
 import lombok.RequiredArgsConstructor;
 import org.calorieburn.server.core.member.domain.Member;
+import org.calorieburn.server.core.member.exception.MemberErrorCode;
 import org.calorieburn.server.core.member.infra.MemberCoreRepository;
+import org.calorieburn.server.global.exception.type.ApiException;
+import org.calorieburn.server.global.security.JwtProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class AuthService {
 
     private final MemberCoreRepository memberCoreRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtProvider jwtProvider;
 
     /**
      * 회원가입을 위한 메서드
@@ -27,5 +31,21 @@ public class MemberService {
         String encodedPassword = passwordEncoder.encode(password);
         Member member = new Member(null, name, email, encodedPassword, phone, school);
         return memberCoreRepository.save(member);
+    }
+
+    /**
+     * 로그인을 위한 메서드
+     *
+     * @param email    이메일
+     * @param password 비밀번호
+     */
+    public String signIn(String email, String password) {
+        Member member = memberCoreRepository.findByEmail(email);
+
+        if (!passwordEncoder.matches(password, member.getPassword())) {
+            throw new ApiException(MemberErrorCode.M006);
+        }
+
+        return jwtProvider.createAccessToken(member);
     }
 }

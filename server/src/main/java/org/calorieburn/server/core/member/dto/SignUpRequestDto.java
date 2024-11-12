@@ -1,6 +1,6 @@
 package org.calorieburn.server.core.member.dto;
 
-public record SignUpCommandDto(
+public record SignUpRequestDto(
         String name,
         String email,
         String password,
