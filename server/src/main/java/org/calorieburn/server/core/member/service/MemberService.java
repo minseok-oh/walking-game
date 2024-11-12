@@ -22,4 +22,14 @@ public class MemberService {
         Member member = memberCoreRepository.findById(id);
         return MemberInfoResponse.of(member);
     }
+
+    /**
+     * 학교별 점수 합산 조회를 위한 메서드
+     *
+     * @param school 학교 이름
+     * @return 학교별 점수 합산
+     */
+    public Long getSchoolScoreSum(String school) {
+        return memberCoreRepository.getSchoolScoreSum(school);
+    }
 }

@@ -3,13 +3,11 @@ package org.calorieburn.server.core.siege.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.calorieburn.server.core.member.service.MemberService;
 import org.calorieburn.server.core.siege.domain.Siege;
-import org.calorieburn.server.core.siege.dto.CreateSiegeRequest;
 import org.calorieburn.server.core.siege.dto.DetailSiegeInfo;
 import org.calorieburn.server.core.siege.dto.SimpleSiegeInfo;
-import org.calorieburn.server.core.siege.exception.SiegeErrorCode;
 import org.calorieburn.server.core.siege.infra.SiegeCoreRepository;
-import org.calorieburn.server.global.exception.type.ApiException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class SiegeService {
 
     private final SiegeCoreRepository siegeCoreRepository;
+    private final MemberService memberService;
 
     /**
      * 현재 진행중인 공성전 리스트 조회
@@ -36,7 +35,17 @@ public class SiegeService {
      */
     public DetailSiegeInfo getSiegeDetail(Long siegeId) {
         Siege siege = siegeCoreRepository.findById(siegeId);
-        return DetailSiegeInfo.from(siege);
+        Long school1Score = memberService.getSchoolScoreSum(siege.getSchool1());
+        Long school2Score = memberService.getSchoolScoreSum(siege.getSchool2());
+        return new DetailSiegeInfo(
+                siege.getTitle(),
+                siege.getSchool1(),
+                siege.getSchool2(),
+                school1Score,
+                school2Score,
+                siege.getStartedAt(),
+                siege.getEndedAt()
+        );
     }
 
     /**
