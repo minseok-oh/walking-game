@@ -11,6 +11,8 @@ public enum MemberErrorCode implements ErrorCode {
     M003(HttpStatus.BAD_REQUEST, "M003", "비밀번호는 필수 입력 값입니다."),
     M004(HttpStatus.BAD_REQUEST, "M004", "전화번호는 필수 입력 값입니다."),
     M005(HttpStatus.BAD_REQUEST, "M005", "학교는 필수 입력 값입니다."),
+    M006(HttpStatus.BAD_REQUEST, "M006", "비밀번호가 일치하지 않습니다."),
+    M007(HttpStatus.UNAUTHORIZED, "M007", "액세스 토큰이 유효하지 않습니다."),
     ;
 
     private final HttpStatus httpStatus;
