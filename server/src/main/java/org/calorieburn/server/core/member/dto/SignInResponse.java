@@ -1,6 +1,6 @@
 package org.calorieburn.server.core.member.dto;
 
-public record SignInResponseDto(
+public record SignInResponse(
         String accessToken
 ) {
 }
