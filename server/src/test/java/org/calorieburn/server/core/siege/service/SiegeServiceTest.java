@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.calorieburn.server.context.ServiceTest;
 import org.calorieburn.server.core.siege.domain.Siege;
+import org.calorieburn.server.core.siege.dto.CreateSiegeRequest;
 import org.calorieburn.server.core.siege.dto.DetailSiegeInfo;
 import org.calorieburn.server.core.siege.dto.SimpleSiegeInfo;
 import org.junit.jupiter.api.Nested;
@@ -39,7 +40,6 @@ class SiegeServiceTest extends ServiceTest {
             );
             siegeCoreRepository.save(siege2);
 
-
             // when
             List<SimpleSiegeInfo> siegeList = siegeService.getSiegeList();
 
@@ -71,6 +71,32 @@ class SiegeServiceTest extends ServiceTest {
             assertEquals(savedSiege.getTitle(), siegeDetail.title());
             assertEquals(savedSiege.getSchool1(), siegeDetail.school1());
             assertEquals(savedSiege.getSchool2(), siegeDetail.school2());
+        }
+    }
+
+    @Nested
+    class createSiege_메서드는 {
+
+        @Test
+        void 공성전을_생성한다() {
+            // given
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime tomorrow = now.plusDays(1);
+            String title = "test";
+            String school1 = "test";
+            String school2 = "test";
+
+
+            // when
+            siegeService.createSiege(title, school1, school2, now, tomorrow);
+
+            // then
+            List<Siege> sieges = siegeCoreRepository.findByEndedAtAfter(now);
+            assertEquals(1, sieges.size());
+            Siege savedSiege = sieges.get(0);
+            assertEquals(title, savedSiege.getTitle());
+            assertEquals(school1, savedSiege.getSchool1());
+            assertEquals(school2, savedSiege.getSchool2());
         }
     }
 }
