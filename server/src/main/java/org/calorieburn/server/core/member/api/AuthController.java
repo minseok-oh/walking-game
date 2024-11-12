@@ -1,9 +1,9 @@
 package org.calorieburn.server.core.member.api;
 
 import lombok.RequiredArgsConstructor;
-import org.calorieburn.server.core.member.dto.SignInRequestDto;
-import org.calorieburn.server.core.member.dto.SignInResponseDto;
-import org.calorieburn.server.core.member.dto.SignUpRequestDto;
+import org.calorieburn.server.core.member.dto.SignInRequest;
+import org.calorieburn.server.core.member.dto.SignInResponse;
+import org.calorieburn.server.core.member.dto.SignUpRequest;
 import org.calorieburn.server.core.member.service.AuthService;
 import org.calorieburn.server.global.api.ApiResponse;
 import org.calorieburn.server.global.common.LoginMember;
@@ -20,16 +20,16 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/auth/sign-up")
-    public ResponseEntity<ApiResponse> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
-        authService.signUp(signUpRequestDto.name(), signUpRequestDto.email(), signUpRequestDto.password(),
-                signUpRequestDto.phone(), signUpRequestDto.school());
+    public ResponseEntity<ApiResponse> signUp(@RequestBody SignUpRequest signUpRequest) {
+        authService.signUp(signUpRequest.name(), signUpRequest.email(), signUpRequest.password(),
+                signUpRequest.phone(), signUpRequest.school());
         return ResponseEntity.ok(ApiResponse.of(null));
     }
 
     @PostMapping("/auth/sign-in")
-    public ResponseEntity<ApiResponse> signIn(@RequestBody SignInRequestDto signInRequestDto) {
-        String accessToken = authService.signIn(signInRequestDto.email(), signInRequestDto.password());
-        return ResponseEntity.ok(ApiResponse.of(new SignInResponseDto(accessToken)));
+    public ResponseEntity<ApiResponse> signIn(@RequestBody SignInRequest signInRequest) {
+        String accessToken = authService.signIn(signInRequest.email(), signInRequest.password());
+        return ResponseEntity.ok(ApiResponse.of(new SignInResponse(accessToken)));
     }
 
     @GetMapping("/auth/check")

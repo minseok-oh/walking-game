@@ -1,6 +1,6 @@
 package org.calorieburn.server.core.member.dto;
 
-public record SignInRequestDto(
+public record SignInRequest(
         String email,
         String password
 ) {
