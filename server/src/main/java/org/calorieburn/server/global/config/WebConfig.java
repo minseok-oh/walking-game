@@ -1,8 +1,15 @@
 package org.calorieburn.server.global.config;
 
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.calorieburn.server.global.security.LoginArgumentResolver;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@Configuration
+@RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
@@ -14,5 +21,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .exposedHeaders("Custom-Header")
                 .maxAge(3600);
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new LoginArgumentResolver());
     }
 }
