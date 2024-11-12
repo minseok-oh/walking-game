@@ -51,4 +51,26 @@ public class HealthInfo {
             throw new ApiException(HealthInfoErrorCode.H004);
         }
     }
+
+    public HealthInfo appendExercise(Long walkingStep, Long calorie) {
+        return new HealthInfo(
+                this.id,
+                this.walkingStep + walkingStep,
+                this.calorie + calorie,
+                this.beforeWeight,
+                this.afterWeight,
+                this.memberId
+        );
+    }
+
+    public HealthInfo updateCurrentWeight(Long currentWeight) {
+        return new HealthInfo(
+                this.id,
+                this.walkingStep,
+                this.calorie,
+                this.beforeWeight,
+                currentWeight,
+                this.memberId
+        );
+    }
 }
