@@ -1,12 +1,11 @@
 package org.calorieburn.server.core.siege.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import org.calorieburn.server.context.ServiceTest;
 import org.calorieburn.server.core.siege.domain.Siege;
-import org.calorieburn.server.core.siege.dto.CreateSiegeRequest;
 import org.calorieburn.server.core.siege.dto.DetailSiegeInfo;
 import org.calorieburn.server.core.siege.dto.SimpleSiegeInfo;
 import org.junit.jupiter.api.Nested;
@@ -85,7 +84,6 @@ class SiegeServiceTest extends ServiceTest {
             String title = "test";
             String school1 = "test";
             String school2 = "test";
-
 
             // when
             siegeService.createSiege(title, school1, school2, now, tomorrow);
