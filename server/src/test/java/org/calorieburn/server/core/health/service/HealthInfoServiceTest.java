@@ -55,4 +55,57 @@ class HealthInfoServiceTest extends ServiceTest {
             assertEquals(memberId, healthInfo.getMemberId());
         }
     }
+
+    @Nested
+    class appendExercise_메서드는 {
+
+        @Test
+        void 걸음수와_소모칼로리를_추가한다() {
+            // given
+            Long walkingStep = 10000L;
+            Long calorie = 500L;
+            Long beforeWeight = 70000L;
+            Long afterWeight = 69000L;
+            Long memberId = 1L;
+            healthInfoCoreRepository.save(
+                    new HealthInfo(null, 0L, 0L, beforeWeight, afterWeight, memberId));
+
+            // when
+            healthInfoService.appendExercise(memberId, walkingStep, calorie);
+            HealthInfo healthInfo = healthInfoCoreRepository.findByMemberId(memberId);
+
+            // then
+            assertEquals(walkingStep, healthInfo.getWalkingStep());
+            assertEquals(calorie, healthInfo.getCalorie());
+            assertEquals(beforeWeight, healthInfo.getBeforeWeight());
+            assertEquals(afterWeight, healthInfo.getAfterWeight());
+        }
+    }
+
+    @Nested
+    class updateCurrentWeight_메서드는 {
+
+        @Test
+        void 현재_체중을_업데이트한다() {
+            // given
+            Long walkingStep = 10000L;
+            Long calorie = 500L;
+            Long beforeWeight = 70000L;
+            Long afterWeight = 69000L;
+            Long memberId = 1L;
+            healthInfoCoreRepository.save(
+                    new HealthInfo(null, walkingStep, calorie, beforeWeight, afterWeight, memberId));
+            Long currentWeight = 68000L;
+
+            // when
+            healthInfoService.updateCurrentWeight(memberId, currentWeight);
+            HealthInfo healthInfo = healthInfoCoreRepository.findByMemberId(memberId);
+
+            // then
+            assertEquals(walkingStep, healthInfo.getWalkingStep());
+            assertEquals(calorie, healthInfo.getCalorie());
+            assertEquals(beforeWeight, healthInfo.getBeforeWeight());
+            assertEquals(currentWeight, healthInfo.getAfterWeight());
+        }
+    }
 }

@@ -60,4 +60,45 @@ class HealthInfoTest {
             );
         }
     }
+
+    @Nested
+    class appendExercise_메서드는 {
+
+        @Test
+        void 걸음수와_소모칼로리를_추가할_수_있다() {
+            // given
+            HealthInfo healthInfo = new HealthInfo(null, 10000L, 500L, 70000L, 69000L, 1L);
+            Long walkingStep = 1000L;
+            Long calorie = 50L;
+
+            // when
+            HealthInfo appendedHealthInfo = healthInfo.appendExercise(walkingStep, calorie);
+
+            // then
+            assertEquals(11000L, appendedHealthInfo.getWalkingStep());
+            assertEquals(550L, appendedHealthInfo.getCalorie());
+            assertEquals(70000L, appendedHealthInfo.getBeforeWeight());
+            assertEquals(69000L, appendedHealthInfo.getAfterWeight());
+        }
+    }
+
+    @Nested
+    class updateCurrentWeight_메서드는 {
+
+        @Test
+        void 현재_체중을_업데이트할_수_있다() {
+            // given
+            HealthInfo healthInfo = new HealthInfo(null, 10000L, 500L, 70000L, 69000L, 1L);
+            Long currentWeight = 68000L;
+
+            // when
+            HealthInfo updatedHealthInfo = healthInfo.updateCurrentWeight(currentWeight);
+
+            // then
+            assertEquals(10000L, updatedHealthInfo.getWalkingStep());
+            assertEquals(500L, updatedHealthInfo.getCalorie());
+            assertEquals(70000L, updatedHealthInfo.getBeforeWeight());
+            assertEquals(68000L, updatedHealthInfo.getAfterWeight());
+        }
+    }
 }
