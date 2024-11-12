@@ -1,5 +1,7 @@
 package org.calorieburn.server.context;
 
+import org.calorieburn.server.core.health.infra.HealthInfoCoreRepository;
+import org.calorieburn.server.core.health.service.HealthInfoService;
 import org.calorieburn.server.core.member.infra.MemberCoreRepository;
 import org.calorieburn.server.core.member.service.AuthService;
 import org.calorieburn.server.core.member.service.MemberService;
@@ -18,9 +20,15 @@ public abstract class ServiceTest {
     protected MemberCoreRepository memberCoreRepository;
 
     @Autowired
+    protected HealthInfoCoreRepository healthInfoCoreRepository;
+
+    @Autowired
     protected MemberService memberService;
 
     @Autowired
     protected AuthService authService;
+
+    @Autowired
+    protected HealthInfoService healthInfoService;
 
 }
