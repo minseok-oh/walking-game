@@ -1,11 +1,10 @@
 package org.calorieburn.server.global.exception;
 
 import lombok.Getter;
-import org.calorieburn.server.global.docs.EnumType;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public enum GlobalErrorCode implements ErrorCode, EnumType {
+public enum GlobalErrorCode implements ErrorCode {
 
     // 클라이언트 오류
     INVALID_REQUEST_PARAMETER(HttpStatus.BAD_REQUEST, "GB-C-0001", "요청 파라미터가 잘못되었습니다."),
@@ -26,13 +25,4 @@ public enum GlobalErrorCode implements ErrorCode, EnumType {
         this.message = message;
     }
 
-    @Override
-    public String getName() {
-        return name();
-    }
-
-    @Override
-    public String getDescription() {
-        return httpStatus + ": " + code + " - " + message;
-    }
 }
