@@ -1,6 +1,7 @@
 package org.calorieburn.server.core.health.api;
 
 import lombok.RequiredArgsConstructor;
+import org.calorieburn.server.core.health.dto.CurrentWeightRequest;
 import org.calorieburn.server.core.health.dto.ExerciseRequest;
 import org.calorieburn.server.core.health.dto.HealthInfoResponse;
 import org.calorieburn.server.core.health.service.HealthInfoService;
@@ -35,9 +36,9 @@ public class HealthInfoController {
     }
 
     @PutMapping("/health-infos/weight")
-    public ResponseEntity<ApiResponse> updateCurrentWeight(@RequestBody Long currentWeight,
+    public ResponseEntity<ApiResponse> updateCurrentWeight(@RequestBody CurrentWeightRequest currentWeightRequest,
                                                     @LoginMember Long memberId) {
-        healthInfoService.updateCurrentWeight(memberId, currentWeight);
+        healthInfoService.updateCurrentWeight(memberId, currentWeightRequest.weight());
         return ResponseEntity.ok(ApiResponse.of(null));
     }
 }
