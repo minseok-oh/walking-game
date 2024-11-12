@@ -4,6 +4,8 @@ import org.calorieburn.server.core.health.domain.HealthInfo;
 import org.calorieburn.server.core.health.entity.HealthInfoEntity;
 import org.calorieburn.server.core.member.domain.Member;
 import org.calorieburn.server.core.member.entity.MemberEntity;
+import org.calorieburn.server.core.siege.domain.Siege;
+import org.calorieburn.server.core.siege.entity.SiegeEntity;
 
 public class Mapper {
 
@@ -48,6 +50,28 @@ public class Mapper {
                 healthInfoEntity.getBeforeWeight(),
                 healthInfoEntity.getAfterWeight(),
                 healthInfoEntity.getMemberId()
+        );
+    }
+
+    public static SiegeEntity convertToSiegeEntity(Siege siege) {
+        return new SiegeEntity(
+                siege.getId(),
+                siege.getTitle(),
+                siege.getSchool1(),
+                siege.getSchool2(),
+                siege.getStartedAt(),
+                siege.getEndedAt()
+        );
+    }
+
+    public static Siege convertToSiege(SiegeEntity siegeEntity) {
+        return new Siege(
+                siegeEntity.getId(),
+                siegeEntity.getTitle(),
+                siegeEntity.getSchool1(),
+                siegeEntity.getSchool2(),
+                siegeEntity.getStartedAt(),
+                siegeEntity.getEndedAt()
         );
     }
 }

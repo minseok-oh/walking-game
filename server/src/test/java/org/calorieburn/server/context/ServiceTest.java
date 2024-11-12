@@ -5,6 +5,8 @@ import org.calorieburn.server.core.health.service.HealthInfoService;
 import org.calorieburn.server.core.member.infra.MemberCoreRepository;
 import org.calorieburn.server.core.member.service.AuthService;
 import org.calorieburn.server.core.member.service.MemberService;
+import org.calorieburn.server.core.siege.infra.SiegeCoreRepository;
+import org.calorieburn.server.core.siege.service.SiegeService;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +29,9 @@ public abstract class ServiceTest {
     protected HealthInfoCoreRepository healthInfoCoreRepository;
 
     @Autowired
+    protected SiegeCoreRepository siegeCoreRepository;
+
+    @Autowired
     protected MemberService memberService;
 
     @Autowired
@@ -34,6 +39,9 @@ public abstract class ServiceTest {
 
     @Autowired
     protected HealthInfoService healthInfoService;
+
+    @Autowired
+    protected SiegeService siegeService;
 
     @AfterEach
     void tearDown() {
